@@ -1,6 +1,13 @@
 # COVID Tracker
 
-- Modify wireframe DONE
-- Get Country data
-- Show country data on the map
-- Show country data in a table 
+This is a demo app to demonstrate use of APIs, charts, graphs etc.
+
+This project uses:
+
+- APIs
+- Bootstrap
+- JavaScript
+- CSS
+- HTML
+
+/////////////////////////////////////////////////////
