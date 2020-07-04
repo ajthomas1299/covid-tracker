@@ -1,70 +1,5 @@
 // CHART.JS //
 
-// window.onload = () => {
-//   // getCountryData();
-//   // getHistoricalData();
-//   getWorldCoronaData();
-// };
-
-/////////////////////////////////
-
-// var map;
-// var infoWindow;
-
-// initMap function.
-// function initMap() {
-//   map = new google.maps.Map(document.getElementById("map"), {
-//     center: { lat: 39.8283, lng: -98.5795 },
-//     zoom: 3,
-//     styles: mapStyle,
-//   });
-//   infoWindow = new google.maps.InfoWindow();
-// }
-
-// getCountryData function.
-// const getCountryData = () => {
-//   fetch("https://corona.lmao.ninja/v2/countries")
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((data) => {
-//       showDataOnMap(data);
-//       showDataInTable(data);
-//     });
-// };
-
-// getWorldCoronaData function.
-const getWorldCoronaData = () => {
-  fetch("https://disease.sh/v2/all")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let chartData = buildPieChart(data);
-      buildChart(chartData);
-    });
-};
-
-// fetch / get the disease data.
-// fetch("https://disease.sh/v2/all")
-//     .then((response)=>{
-//         return response.json()
-//     }).then((data)=>{
-//         buildPieChart(data);
-//     })
-
-// getHistoricalData function.  fetch / get the corona virus historical data.
-const getHistoricalData = () => {
-  fetch("https://corona.lmao.ninja/v2/historical/all?lastdays=120")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let chartData = buildChartData(data);
-      buildChart(chartData);
-    });
-};
-
 // buildChartData function.
 const buildChartData = (data) => {
   let chartData = [];
@@ -88,7 +23,7 @@ const buildPieChart = (data) => {
     data: {
       datasets: [
         {
-          data: [data.active, data.active, data.deaths],
+          data: [data.active, data.recovered, data.deaths],
           backgroundColor: ["#9d80fe", "#7dd71d", "#fb4443"],
         },
       ],
@@ -96,20 +31,23 @@ const buildPieChart = (data) => {
       // These labels appear in the legend and in the tooltips when hovering different arcs
       labels: ["Active", "Recovered", "Deaths"],
     },
-    // options: {
-    //   maintainAspectRation: false,
-    //   responsive: true
-    // }
+    options: {
+      maintainAspectRatio: false,
+      // responsive: false,
+    },
   });
 
   ////
 };
 
-// buildChart function.
+// buildChart function. Builds the linear chart.
 const buildChart = (chartData) => {
+  //
   console.log("All if good");
+  //
   var timeFormat = "MM/DD/YY";
   var ctx = document.getElementById("myChart").getContext("2d");
+  //
   var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: "line",
@@ -129,6 +67,7 @@ const buildChart = (chartData) => {
     // Configuration options go here
     options: {
       maintainAspectRatio: false,
+      // responsive: false,
       tooltips: {
         mode: "index",
         intersect: false,

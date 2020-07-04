@@ -1,5 +1,9 @@
-1. Store value of data
-2. addEventListener for click on each button
-3. Update Map
-4. Clear the map (Remove the markers)
-5. Put new markers on map.
+1. Store value of data - DONE
+2. add onclick on each button - DONE
+3. Update Map - DONE
+4. Clear the map (Remove the markers) - DONE
+5. Put new markers on map. - DONE
+
+6. Add a hover state to the cards.
+7. Add an active state to the cards.
+8. Add a country table to the right side container. 

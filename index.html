@@ -50,34 +50,54 @@
           <!--row stats-container-->
           <div class="row stats-container">
             <div class="col stats-box">
-              <div class="card">
+              <div
+                class="card cases-card"
+                onclick="changeDataSelection('cases')"
+              >
                 <div class="card-body">
                   <h5 class="card-title">Total Cases</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">1,436,886</h6>
+                  <h6 class="card-subtitle mb-2 total-number">
+                    1,436,886
+                  </h6>
                 </div>
               </div>
             </div>
             <div class="col stats-box">
-              <div class="card">
+              <div
+                class="card active-cases-card"
+                onclick="changeDataSelection('active')"
+              >
                 <div class="card-body">
                   <h5 class="card-title">Active Cases</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">1,049,886</h6>
+                  <h6 class="card-subtitle mb-2 active-number">
+                    1,049,886
+                  </h6>
                 </div>
               </div>
             </div>
             <div class="col stats-box">
-              <div class="card">
+              <div
+                class="card recovered-cases-card"
+                onclick="changeDataSelection('recovered')"
+              >
                 <div class="card-body">
                   <h5 class="card-title">Recovered</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">302,964</h6>
+                  <h6 class="card-subtitle mb-2 recovered-number">
+                    302,964
+                  </h6>
                 </div>
               </div>
             </div>
             <div class="col stats-box">
-              <div class="card">
+              <div
+                class="card deaths-cases-card"
+                onclick="changeDataSelection('deaths')"
+              >
                 <div class="card-body">
                   <h5 class="card-title">Deaths</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">82,191</h6>
+                  <h6 class="card-subtitle mb-2 deaths-number">
+                    82,191
+                  </h6>
                 </div>
               </div>
             </div>
@@ -90,14 +110,17 @@
           </div>
           <!--row chart-container-->
           <div class="row chart-container mt-3">
-            <div class="col linear-chart mr-3">
+            <div class="col linear-chart mr-3 p-1">
               <canvas id="myChart"></canvas>
             </div>
-            <div class="col pie-chart p-3">
+            <div class="col pie-chart p-1">
               <canvas id="myPieChart"></canvas>
             </div>
           </div>
           <!-- end col-8 -->
+        </div>
+        <div class="col-4 side-panel-container mt-3">
+          <div></div>
         </div>
         <!-- end row -->
       </div>

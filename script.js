@@ -6,18 +6,19 @@ window.onload = () => {
   //
   getCountryData();
   getHistoricalData();
+  getWorldCoronaData();
   //
-  // document.querySelector("active-cases-card").addEventListener("click", () => {
+  // document.querySelector(".active-cases-card").addEventListener("click", () => {
   //   console.log("yo we clicked");
   // });
 };
 
 ///////////////////////////////////////////
 
-// initialize variables.
+// initialize global variables.
 let map;
 let infoWindow;
-let coronaGlobalData;
+let coronaGlobalCountryData;
 let mapCircles = [];
 let casesTypeColors = {
   cases: "#1d2c4d",
@@ -52,17 +53,64 @@ const getCountryData = () => {
       return response.json();
     })
     .then((data) => {
+      coronaGlobalCountryData = data;
       showDataOnMap(data);
       showDataInTable(data);
       //
-      console.log(data);
+      //console.log(data);
     });
   ////
 };
 
+// getWorldCoronaData function.
+const getWorldCoronaData = () => {
+  fetch("https://disease.sh/v2/all")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      //
+      // console.log(data);
+      //
+      let chartData = buildPieChart(data);
+      //
+    });
+};
+
+// getHistoricalData function.  fetch / get the corona virus historical data.
+const getHistoricalData = () => {
+  fetch("https://corona.lmao.ninja/v2/historical/all?lastdays=120")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let chartData = buildChartData(data);
+      buildChart(chartData);
+    });
+};
+
 // changeDataSelection function.
 const changeDataSelection = (casesType) => {
+  // Testing
+  // console.log(casesType);
+  // console.log(mapCircles);
+
   //
+  clearTheMap();
+  //
+  showDataOnMap(coronaGlobalCountryData, casesType);
+  ////
+};
+
+// clearTheMap function.
+const clearTheMap = () => {
+  //
+  for (let circle of mapCircles) {
+    //
+    circle.setMap(null);
+  }
+
+  ////
 };
 
 // openInfoWindow function.
@@ -71,7 +119,7 @@ const openInfoWindow = () => {
 };
 
 // showDataOnMap function.
-const showDataOnMap = (data) => {
+const showDataOnMap = (data, casesType = "cases") => {
   //
   data.map((country) => {
     //
@@ -82,15 +130,20 @@ const showDataOnMap = (data) => {
 
     //
     var countryCircle = new google.maps.Circle({
-      strokeColor: "#FF0000",
+      // strokeColor: "#FF0000",
+      strokeColor: casesTypeColors[casesType],
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: "#FF0000",
+      // fillColor: "#FF0000",
+      fillColor: casesTypeColors[casesType],
       fillOpacity: 0.35,
       map: map,
       center: countryCenter,
-      radius: country.cases,
+      radius: country[casesType],
     });
+
+    // load our array we will use to clear the circles later.
+    mapCircles.push(countryCircle);
 
     //
     var html = `

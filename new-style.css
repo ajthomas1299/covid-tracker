@@ -29,11 +29,11 @@
   padding: 1rem;
 }
 
-.stats-box {
-  /*👉 background-color: rgb(202, 176, 176);
+/*👉.stats-box {
+   background-color: rgb(202, 176, 176);
   margin: 16px;
-  padding: 8px;👈*/
-}
+  padding: 8px;
+}👈*/
 
 /*👉.card {
   background-color: #eff2f6;
@@ -54,7 +54,10 @@
 }
 
 .chart-container {
-  height: 300px;
+  /*👉 display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;👈*/
+  height: 220px;
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -66,26 +69,17 @@
 }
 
 .linear-chart {
-  /*👉background-color: #eff2f6;👈*/
-  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 12px;
-  /*👉margin-right: 6px;
-  margin-left: 6px;👈*/
 }
+
+/*👉.canvas {
+  width: 50%;
+}👈*/
 
 .pie-chart {
-  /*👉background-color: #eff2f6;👈*/
-  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 12px;
-  /*👉margin-right: 6px;👈*/
-  /*👉 margin-left: 6px;👈*/
-}
-
-col {
-  height: 50px;
-  background-color: red;
 }
 
 .total-number {
@@ -102,4 +96,12 @@ col {
 
 .deaths-number {
   color: #fb4443;
+}
+
+.side-panel-container {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #eff2f6;
+  /*👉border-radius: 12px;👈*/
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
 }
