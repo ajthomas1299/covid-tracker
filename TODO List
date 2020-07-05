@@ -1,3 +1,5 @@
+#ToDo List
+
 1. Store value of data - DONE
 2. add onclick on each button - DONE
 3. Update Map - DONE
@@ -8,3 +10,10 @@
 7. Add an active state to the cards. - DONE
 8. Add a country table to the right side container. - DONE
 9. Have displayed number update automatically with formatting. - DONE
+
+10. Change the line graph to show cases, recovered, deaths. - DONE
+11. Fix issue with pie chart going below the line graph when minimized. - DONE
+12. Format numbers on the chartjs tooltips popup windows. - DONE
+
+
+######################################################################

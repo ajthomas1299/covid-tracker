@@ -2,7 +2,7 @@
 
 window.onload = () => {
   //
-  console.log("in window onload!");
+  //console.log("in window onload!");
   //
   getCountryData();
   getHistoricalData();
@@ -30,7 +30,7 @@ let casesTypeColors = {
 // initMap function.
 function initMap() {
   //
-  console.log("in initMap");
+  //console.log("in initMap");
 
   //
   map = new google.maps.Map(document.getElementById("map"), {
@@ -46,7 +46,7 @@ function initMap() {
 // getCountryData function.
 const getCountryData = () => {
   //
-  console.log("in getCountryData");
+  //console.log("in getCountryData");
   //
   fetch("https://corona.lmao.ninja/v2/countries")
     .then((response) => {
@@ -86,8 +86,10 @@ const getHistoricalData = () => {
       return response.json();
     })
     .then((data) => {
-      let chartData = buildChartData(data);
-      buildChart(chartData);
+      let chartDataCases = buildChartDataCases(data);
+      let chartDataRecovered = buildChartDataRecovered(data);
+      let chartDataDeaths = buildChartDataDeaths(data);
+      buildChart(chartDataCases, chartDataRecovered, chartDataDeaths);
     });
 };
 

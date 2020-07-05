@@ -74,22 +74,29 @@
 }
 
 .chart-container {
-  height: 220px;
+  height: 250px;
   margin-left: 0px;
   margin-right: 0px;
 }
 
 .chart-container .col {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   background-color: #eff2f6;
   border-radius: 12px;
 }
 
 .linear-chart {
+  height: 100%;
+  width: 200px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 12px;
 }
 
 .pie-chart {
+  height: 100%;
+  width: 200px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 12px;
 }
