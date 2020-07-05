@@ -72,6 +72,8 @@ const getWorldCoronaData = () => {
       //
       // console.log(data);
       //
+      setStatsCardNumbers(data);
+      //
       let chartData = buildPieChart(data);
       //
     });
@@ -90,11 +92,21 @@ const getHistoricalData = () => {
 };
 
 // changeDataSelection function.
-const changeDataSelection = (casesType) => {
+const changeDataSelection = (elem, casesType) => {
   // Testing
   // console.log(casesType);
   // console.log(mapCircles);
 
+  //
+  let current = document.getElementsByClassName("show-clicked");
+
+  // If there's no active class
+  if (current.length > 0) {
+    current[0].className = current[0].className.replace(" show-clicked", "");
+  }
+
+  //
+  elem.classList.toggle("show-clicked");
   //
   clearTheMap();
   //
@@ -110,6 +122,38 @@ const clearTheMap = () => {
     circle.setMap(null);
   }
 
+  ////
+};
+
+// setStatsCardNumbers function.
+const setStatsCardNumbers = (data) => {
+  //
+  // console.log("In setStatsCardNumbers: data: ");
+  // console.log("Cases: " + data.cases);
+  // console.log("Active: " + data.cases);
+  // console.log("Recovered: " + data.cases);
+  // console.log("Death: " + data.cases);
+  //
+  // data.active, data.recovered, data.deaths
+  //
+  //
+  let htmlTotalCases = "";
+  let htmlActiveCases = "";
+  let htmlRecoveredCases = "";
+  let htmlDeathCases = "";
+  //
+  document.getElementById(
+    "total-cases"
+  ).innerHTML = data.cases.toLocaleString();
+  document.getElementById(
+    "active-cases"
+  ).innerHTML = data.active.toLocaleString();
+  document.getElementById(
+    "recovered-cases"
+  ).innerHTML = data.recovered.toLocaleString();
+  document.getElementById(
+    "death-cases"
+  ).innerHTML = data.deaths.toLocaleString();
   ////
 };
 
@@ -148,19 +192,21 @@ const showDataOnMap = (data, casesType = "cases") => {
     //
     var html = `
             <div class="info-container">
-                <div class="info-flag" style="background-image: url(${country.countryInfo.flag});">
+                <div class="info-flag" style="background-image: url(${
+                  country.countryInfo.flag
+                });">
                 </div>
                 <div class="info-name">
                     ${country.country}
                 </div>
                 <div class="info-confirmed">
-                    Total: ${country.cases}
+                    Total: ${country.cases.toLocaleString()}
                 </div>
                 <div class="info-recovered">
-                    Recovered: ${country.recovered}
+                    Recovered: ${country.recovered.toLocaleString()}
                 </div>
                 <div class="info-deaths">
-                    Deaths: ${country.deaths}
+                    Deaths: ${country.deaths.toLocaleString()}
                 </div>
             </div>
         `;
@@ -186,14 +232,16 @@ const showDataOnMap = (data, casesType = "cases") => {
 
 // showDataInTable function.
 const showDataInTable = (data) => {
+  //
   var html = "";
+  //
   data.forEach((country) => {
     html += `
         <tr>
             <td>${country.country}</td>
-            <td>${country.cases}</td>
-            <td>${country.recovered}</td>
-            <td>${country.deaths}</td>
+            <td>${country.cases.toLocaleString()}</td>
+            <td>${country.recovered.toLocaleString()}</td>
+            <td>${country.deaths.toLocaleString()}</td>
         </tr>
         `;
   });
