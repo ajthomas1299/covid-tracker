@@ -1,7 +1,6 @@
 /*  NEW-STYLE.CSS */
 
 .main {
-  /*👉background-color: rgb(179, 151, 151);👈*/
   height: 100vh;
 }
 
@@ -60,22 +59,9 @@
 
 .deaths-cases-card.show-clicked {
   background-color: rgba(0, 0, 0, 0.125);
-  /*👉color: white;👈*/
 }
 
-/*👉.stats-box {
-   background-color: rgb(202, 176, 176);
-  margin: 16px;
-  padding: 8px;
-}👈*/
-
-/*👉.card {
-  background-color: #eff2f6;
-  border-radius: 12px;
-}👈*/
-
 .map-container {
-  /*👉background-color: blue;👈*/
   height: 500px;
 }
 
@@ -88,16 +74,12 @@
 }
 
 .chart-container {
-  /*👉 display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;👈*/
   height: 220px;
   margin-left: 0px;
   margin-right: 0px;
 }
 
 .chart-container .col {
-  /*👉 background-color: slategray;👈*/
   background-color: #eff2f6;
   border-radius: 12px;
 }
@@ -106,10 +88,6 @@
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 12px;
 }
-
-/*👉.canvas {
-  width: 50%;
-}👈*/
 
 .pie-chart {
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -132,23 +110,10 @@
   color: #fb4443;
 }
 
-/*👉.side-panel-container {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  background-color: #eff2f6;
-  border-radius: 12px;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
-}👈*/
-
 .side-panel-container {
-  /*👉 height: 911px;👈*/
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /*👉 border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;👈*/
 }
 
 .data-info {
@@ -160,40 +125,15 @@
   border-radius: 12px;
 }
 
-.wrapper {
-  background-color: orange;
-  border-radius: 24px;
-  overflow: hidden;
-  /*👉  padding: 25px 25px 25px 25px;👈*/
-  /*👉height: 676px;👈*/
-}
-
 .country-data {
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(0, 0, 0, 0.125);
   background-color: #eff2f6;
   border-radius: 24px;
-
-  /*👉border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;👈*/
-
-  /*👉 margin-bottom: 15px;
-  border-radius: 24px;👈*/
-  /*👉overflow: scroll;👈*/
   overflow-y: hidden;
   overflow-x: hidden;
-  /*👉overflow-y: hidden;👈*/
 }
-
-/*👉.table {
-  padding-bottom: 10px;
-  border-collapse: separate !important;
-}👈*/
-
-/*👉.table {
-  
-}👈*/
 
 #table-parent {
   padding-bottom: 15px;
