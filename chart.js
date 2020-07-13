@@ -76,71 +76,71 @@ const buildChartDataDeaths = (data) => {
 };
 
 // buildPieChart function.
-const buildPieChart = (data) => {
-  var ctx = document.getElementById("myPieChart").getContext("2d");
+// const buildPieChart = (data) => {
+//   var ctx = document.getElementById("myPieChart").getContext("2d");
 
-  // For a pie chart
-  var myPieChart = new Chart(ctx, {
-    //
-    type: "pie",
-    //
-    options: {
-      maintainAspectRatio: false,
-      // responsive: false,
-      // tooltips. the popup window!
-      tooltips: {
-        mode: "index",
-        intersect: false,
-        // This took me forever to find AND workout. whew.
-        callbacks: {
-          label: function (tooltipItem, data) {
-            //
-            var dataLabel = data.labels[tooltipItem.index];
-            //
-            var value =
-              ": " +
-              data.datasets[tooltipItem.datasetIndex].data[
-                tooltipItem.index
-              ].toLocaleString();
+//   // For a pie chart
+//   var myPieChart = new Chart(ctx, {
+//     //
+//     type: "pie",
+//     //
+//     options: {
+//       maintainAspectRatio: false,
+//       // responsive: false,
+//       // tooltips. the popup window!
+//       tooltips: {
+//         mode: "index",
+//         intersect: false,
+//         // This took me forever to find AND workout. whew.
+//         callbacks: {
+//           label: function (tooltipItem, data) {
+//             //
+//             var dataLabel = data.labels[tooltipItem.index];
+//             //
+//             var value =
+//               ": " +
+//               data.datasets[tooltipItem.datasetIndex].data[
+//                 tooltipItem.index
+//               ].toLocaleString();
 
-            // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
-            if (Chart.helpers.isArray(dataLabel)) {
-              // show value on first line of multiline label
-              // need to clone because we are changing the value
-              dataLabel = dataLabel.slice();
-              dataLabel[0] += value;
-              //
-            } else {
-              //
-              dataLabel += value;
-              //
-            }
-            //
+//             // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
+//             if (Chart.helpers.isArray(dataLabel)) {
+//               // show value on first line of multiline label
+//               // need to clone because we are changing the value
+//               dataLabel = dataLabel.slice();
+//               dataLabel[0] += value;
+//               //
+//             } else {
+//               //
+//               dataLabel += value;
+//               //
+//             }
+//             //
 
-            // return the text to display on the tooltip
-            return dataLabel;
-            ////
-          }, // end label: function.
-        }, // end callbacks function.
-      }, // end tootips.
-    }, // end options.
-    //
-    data: {
-      datasets: [
-        {
-          data: [data.active, data.recovered, data.deaths],
-          backgroundColor: ["#9d80fe", "#7dd71d", "#fb4443"],
-        },
-      ],
+//             // return the text to display on the tooltip
+//             return dataLabel;
+//             ////
+//           }, // end label: function.
+//         }, // end callbacks function.
+//       }, // end tootips.
+//     }, // end options.
+//     //
+//     data: {
+//       datasets: [
+//         {
+//           data: [data.active, data.recovered, data.deaths],
+//           backgroundColor: ["#9d80fe", "#7dd71d", "#fb4443"],
+//         },
+//       ],
 
-      // These labels appear in the legend and in the tooltips when hovering different arcs
-      labels: ["Active", "Recovered", "Deaths"],
-    },
-    //
-  });
+//       // These labels appear in the legend and in the tooltips when hovering different arcs
+//       labels: ["Active", "Recovered", "Deaths"],
+//     },
+//     //
+//   });
 
-  ////
-};
+//   ////
+// };
 
 // buildChart function. Builds the linear chart.
 const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
@@ -184,11 +184,16 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
       scales: {
         xAxes: [
           {
+            gridLines: {
+              display: true,
+              borderDash: [8, 4],
+            },
             type: "time",
             time: {
               format: timeFormat,
               tooltipFormat: "ll",
             },
+
             // scaleLabel: {
             //   display: true,
             //   labelString: "Date",
@@ -197,10 +202,14 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
         ],
         yAxes: [
           {
+            gridLines: {
+              display: false,
+
+            },
             ticks: {
               // Include a comma sign in the ticks
               callback: function (value, index, values) {
-                return numeral(value).format("0,0");
+                return numeral(value).format("0a");
               },
             },
           },
@@ -213,25 +222,25 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
       datasets: [
         {
           label: "Total Cases",
-          backgroundColor: "#1d2c4d",
-          borderColor: "#1d2c4d",
-          fill: false,
+          backgroundColor: "rgba(204, 16, 52, 0.5)",
+          borderColor: "#B90808",
+          fill: true,
           data: chartDataCases,
         },
-        {
-          label: "Recovered",
-          backgroundColor: "#7dd71d",
-          borderColor: "#1d2c4d",
-          fill: false,
-          data: chartDataRecoverd,
-        },
-        {
-          label: "Deaths",
-          backgroundColor: "#fb4443",
-          borderColor: "#1d2c4d",
-          fill: false,
-          data: chartDataDeaths,
-        },
+        // {
+        //   label: "Recovered",
+        //   backgroundColor: "#7dd71d",
+        //   borderColor: "#1d2c4d",
+        //   fill: false,
+        //   data: chartDataRecoverd,
+        // },
+        // {
+        //   label: "Deaths",
+        //   backgroundColor: "#fb4443",
+        //   borderColor: "#1d2c4d",
+        //   fill: false,
+        //   data: chartDataDeaths,
+        // },
       ],
     },
     //

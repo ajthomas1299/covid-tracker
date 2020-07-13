@@ -15,5 +15,23 @@
 11. Fix issue with pie chart going below the line graph when minimized. - DONE
 12. Format numbers on the chartjs tooltips popup windows. - DONE
 
+# Changing things up.  Simplify. Make it Mobile friendly!.
+
+13. Modify the colors of the application. - DONE
+14. Add side Panel to load data by country. - DONE
+15. Add the active state on click. - DONE
+16. Move the graph into the sidebar. - DONE
+17. Load Real Numbers from API. - DONE
+18. Modify Title. - DONE
+
+# Finish Search and Related Functionality.  
+
+19. Add Search Functionality.
+20. Add NEW Hover and Active States for cards.
+21. Add a container for the map. - DONE
+22. Change the data of the tabs depending on country searched for.
+23. Sort the side panel country data; order by Total Cases desc.
+
+
 
 ######################################################################
