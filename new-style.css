@@ -54,7 +54,24 @@
   font-size: 0.8rem;
 }
 
-.tab-selection {
+/*👉.show-clicked .tab-selection {
+  height: 10px;
+  background-color: #B90808;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;  
+}
+👈*/
+.cases-card:hover,
+.active-cases-card:hover,
+.recovered-cases-card:hover,
+.deaths-cases-card:hover {
+  transform: translate3d(0, -5px, 0);
+  
+}
+
+.cases-card:hover .tab-selection {
   height: 10px;
   background-color: #B90808;
   position: absolute;
@@ -63,31 +80,58 @@
   right: 0;  
 }
 
-.cases-card:hover,
-.active-cases-card:hover,
-.recovered-cases-card:hover,
-.deaths-cases-card:hover {
-  transform: translate3d(0, -5px, 0);
-  background-color: rgba(0, 0, 0, 0.125);
+.recovered-cases-card:hover .tab-selection{
+  height: 10px;
+  background-color: #7fd922;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;  
 }
 
-.cases-card.show-clicked {
-  background-color: rgba(0, 0, 0, 0.125);
-  /*👉color: white;👈*/
+.deaths-cases-card:hover .tab-selection{
+  height: 10px;
+  background-color: #1d2c4d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;  
 }
 
-.active-cases-card.show-clicked {
-  background-color: rgba(0, 0, 0, 0.125);
-  /*👉color: white;👈*/
+.cases-card.show-clicked .tab-selection{
+  height: 10px;
+  background-color: #B90808;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; 
 }
 
-.recovered-cases-card.show-clicked {
-  background-color: rgba(0, 0, 0, 0.125);
-  /*👉color: white;👈*/
+.active-cases-card.show-clicked .tab-selection{
+  height: 10px;
+  background-color: #B90808;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; 
 }
 
-.deaths-cases-card.show-clicked {
-  background-color: rgba(0, 0, 0, 0.125);
+.recovered-cases-card.show-clicked .tab-selection{
+  height: 10px;
+  background-color: #74ad74;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; 
+}
+
+.deaths-cases-card.show-clicked .tab-selection{
+  height: 10px;
+  background-color: #1d2c4d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; 
 }
 
 .cases .tab-selection{
@@ -95,11 +139,11 @@
 }
 
 .recovered .tab-selection{
-  background-color: #74ad74;
+  background-color: #7fd922;
 }
 
 .deaths .tab-selection{
-  background-color: #cc1034;
+  background-color: #1d2c4d;
 }
 
 .map-background {
@@ -116,7 +160,7 @@
 .map-container {
   /*👉height: 500px;👈*/
   /*👉height: 97%;👈*/
-  height: 548px;
+  height: 510px;
 }
 
 #map {
@@ -154,7 +198,7 @@
 }
 
 .deaths-number {
-  color: #fa5575;
+  color: #1d2c4d;
 }
 
 .side-panel-container {
@@ -170,7 +214,7 @@
   justify-content: center;👈*/
 }
 
-.cases-table-container h4, .chart-container h4 {
+.cases-table-container h4, .chart-container h4, .map-background h4 {
   color: #6a5D5D;
   font-weight: 400;
 }

@@ -4,10 +4,9 @@ window.onload = () => {
   //
   //console.log("in window onload!");
   //
-  getCountryData();
+  getCountriesData();
   getHistoricalData();
   getWorldCoronaData();
-  initDropdown();
   //
   // document.querySelector(".active-cases-card").addEventListener("click", () => {
   //   console.log("yo we clicked");
@@ -24,13 +23,15 @@ let mapCircles = [];
 const worldwideSelection = {
   name: 'Worldwide',
   value: 'www',
-  // selected: selected,
+  selected: true,
 }
 let casesTypeColors = {
-  cases: "#1d2c4d",
+  // cases: "#1d2c4d",
+  cases: "#B90808",
   active: "#9d80fe",
   recovered: "#7dd71d",
-  deaths: "#fb4443",
+  // deaths: "#fb4443",
+  deaths: "#1d2c4d",
 };
 
 //
@@ -61,11 +62,17 @@ function initMap() {
   ////
 }
 
-//
+// initDropdown function.
 const initDropdown = (searchList) => {
+  //
+
+  //
   $('.ui.dropdown').dropdown({
     values: searchList,
     onChange: function (value, text) {
+      // Test
+      //console.log("In initDropdown, getting value: ", value)
+
       if (value !== worldwideSelection.value) {
         getCountryData(value);
       } else {
@@ -75,43 +82,40 @@ const initDropdown = (searchList) => {
   });
 }
 
-//
-const setSearchList = (data) => {
-  //
-  let searchList = [];
-  searchList.push(worldwideSelection);
-
-  //
-  // data.forEach((countryData) => {
-  //   searchList.push({
-  //     name: countryData.country,
-  //     value: countryData.countyInfo.iso3
-  //   })
-  // })
-  //
-  initDropdown(searchList);
-}
-
 // getCountryData function.
-// const getCountryData = () => {
-//   //
-//   //console.log("in getCountryData");
-//   //
-//   fetch("https://corona.lmao.ninja/v2/countries")
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((data) => {
-//       // setMapCenter(data.countryInfo.lat, data.countryInfo.lng);
-//       // setStatsData(data);
-//       //
-//       //console.log(data);
-//     });
-//   ////
-// };
+const getCountryData = (countryIso) => {
+  //
+  //console.log("in getCountryData");
+  //
+  const url = "https://disease.sh/v3/covid-19/countries/" + countryIso;
+  //
+
+  //
+  fetch(url)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let newZoom = 3;
+      if ((countryIso == "USA") || (countryIso == "BRA")) {
+        newZoom = 3;
+      } else {
+        newZoom = 5;
+      }
+      // Testing
+      // console.log("In getCountryData: countryIso: ", countryIso);
+      // console.log("In getCountryData: newZoom: ", newZoom);
+      //
+      setMapCenter(data.countryInfo.lat, data.countryInfo.long, newZoom);
+      setStatsCardNumbers(data);
+      //
+      //console.log(data);
+    });
+  ////
+};
 
 // getCountriesData function.
-const getCountryData = () => {
+const getCountriesData = () => {
   //
   //console.log("in getCountryData");
   //
@@ -141,6 +145,7 @@ const getWorldCoronaData = () => {
       // console.log(data);
       //
       setStatsCardNumbers(data);
+      setMapCenter(mapCenter.lat, mapCenter.lng, 2);
       //
       // let chartData = buildPieChart(data);
       //
@@ -208,11 +213,32 @@ const setMapCenter = (lat, long, zoom) => {
   });
 }
 
+//
+const setSearchList = (data) => {
+  //
+  let searchList = [];
+  //
+  searchList.push(worldwideSelection);
+
+  //
+  data.forEach((countryData) => {
+    searchList.push({
+      name: countryData.country,
+      value: countryData.countryInfo.iso3
+    })
+  })
+  // Test
+  //console.log("In setSearchList : searchList: ", searchList)
+  //
+  initDropdown(searchList);
+  ////
+}
+
 // setStatsCardNumbers function.
 const setStatsCardNumbers = (data) => {
-  //
-  console.log("In setStatsCardNumbers: data: ");
-  console.log(data);
+  // Testing
+  //console.log("In setStatsCardNumbers: data: ");
+  //console.log(data);
   // console.log("Cases: " + data.cases);
   // console.log("Active: " + data.cases);
   // console.log("Recovered: " + data.cases);
@@ -243,16 +269,16 @@ const setStatsCardNumbers = (data) => {
   //
   document.querySelector(
     ".cases-total"
-  ).innerHTML = totalCases;
+  ).innerHTML = `${totalCases} Total`;
   //
   //
   document.querySelector(
     ".recovered-total"
-  ).innerHTML = totalRecoveredCases;
+  ).innerHTML = `${totalRecoveredCases} Total`;
   //
   document.querySelector(
     ".deaths-total"
-  ).innerHTML = totalDeathCases;
+  ).innerHTML = `${totalDeathCases} Total`;
   ////
 };
 
@@ -330,7 +356,7 @@ const showDataOnMap = (data, casesType = "cases") => {
 };
 
 // showDataInTable function.
-const showDataInTable = (data) => {
+const showDataInTable = (data, casesType = "cases") => {
   //
   var html = "";
   //
