@@ -8,22 +8,28 @@ const buildChartDataCases = (data) => {
   // );
   //
   let chartDataCases = [];
+  let lastDataPoint;
   //
   for (let date in data.cases) {
-    //
+    // Testing
     // data.cases.toLocaleString()
     // console.log(
     //   "In buildChartDataCases: data.cases Y parameter: " +
     //     data.cases[date].toLocaleString()
     // );
 
+    if (lastDataPoint) {
+      //
+      let newDataPoint = {
+        x: date,
+        y: data.cases[date] - lastDataPoint,
+      };
+      //
+      chartDataCases.push(newDataPoint);
+      //
+    }
     //
-    let newDataPoint = {
-      x: date,
-      y: data.cases[date],
-    };
-    //
-    chartDataCases.push(newDataPoint);
+    lastDataPoint = data.cases[date];
     //
   }
   //
@@ -160,6 +166,12 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
     // Configuration options go here
     options: {
       //
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      //
       maintainAspectRatio: false,
       // responsive: false,
       //
@@ -190,7 +202,7 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
             },
             type: "time",
             time: {
-              format: timeFormat,
+              parser: timeFormat,
               tooltipFormat: "ll",
             },
 
@@ -221,7 +233,7 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
     data: {
       datasets: [
         {
-          label: "Total Cases",
+          label: "Daily New Cases",
           backgroundColor: "rgba(204, 16, 52, 0.5)",
           borderColor: "#B90808",
           fill: true,

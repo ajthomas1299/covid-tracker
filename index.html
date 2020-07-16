@@ -11,6 +11,7 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="new-style.css" />
+  <link rel="stylesheet" href="mobile.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -23,13 +24,13 @@
 <body>
   <div class="main container-fluid">
     <div class="row">
-      <div class="col-8">
+      <div class="col-12 col-lg-8">
         <!--row header-container-->
         <div class="row header-container">
-          <div class="col title-container">
+          <div class="col-sm title-container">
             <h2 style="margin-bottom: 0;">COVID-19 Tracker</h2>
           </div>
-          <div class="col search-container">
+          <div class="col-sm mt-3 mt-sm-0 search-container">
             <div class="ui fluid search selection dropdown">
               <input type="hidden" name="country">
               <i class="dropdown icon"></i>
@@ -39,10 +40,10 @@
 
           </div>
         </div>
-        <!--row stats-container-->
+        <!--row stats-container contains bootstrap cards.-->
         <div class="row stats-container">
 
-          <div class="col stats-box">
+          <div class="col-12 col-sm-4 mb-3 mb-sm-0 stats-box">
             <div class="card cases-card show-clicked" onclick="changeDataSelection(this,'cases')">
               <div class="tab-selection"></div>
               <div class="card-body">
@@ -53,7 +54,7 @@
             </div>
           </div>
 
-          <div class="col stats-box">
+          <div class="col-12 col-sm-4 mb-3 mb-sm-0 stats-box">
             <div class="card recovered-cases-card" onclick="changeDataSelection(this, 'recovered')">
               <div class="tab-selection"></div>
               <div class="card-body">
@@ -64,7 +65,7 @@
             </div>
           </div>
 
-          <div class="col stats-box">
+          <div class="col-12 col-sm-4 mb-3 mb-sm-0 stats-box">
             <div class="card deaths-cases-card" onclick="changeDataSelection(this, 'deaths')">
               <div class="tab-selection"></div>
               <div class="card-body">
@@ -86,9 +87,12 @@
           </div>
         </div>
 
-      </div> <!-- end col-8 -->
+      </div><!-- end first col -->
 
-      <div class="col-4 side-panel-container mt-3 data-info">
+      <!-- <div class="col-12 col-lg-4 side-panel-parent-container"> -->
+      <!-- <div class="row side-panel-parent-container"> -->
+      <!-- <div> -->
+      <div class="col-12 col-lg-4 side-panel-container mt-3 data-info">
         <div class="cases-table-container">
           <h4>Total Cases by Country</h4>
           <div class="country-data">
@@ -104,13 +108,14 @@
         </div>
 
         <div class="chart-container mt-3">
-          <h4>Total Cases Globally</h4>
+          <h4>Global Daily New Cases</h4>
           <div class="linear-chart p-3">
             <canvas id="myChart"></canvas>
           </div>
         </div>
-
       </div>
+      <!-- </div> -->
+      <!-- </div>end second col -->
 
       <!-- end row -->
     </div>

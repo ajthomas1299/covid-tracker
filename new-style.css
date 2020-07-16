@@ -54,15 +54,7 @@
   font-size: 0.8rem;
 }
 
-/*👉.show-clicked .tab-selection {
-  height: 10px;
-  background-color: #B90808;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;  
-}
-👈*/
+
 .cases-card:hover,
 .active-cases-card:hover,
 .recovered-cases-card:hover,
@@ -78,6 +70,7 @@
   top: 0;
   left: 0;
   right: 0;  
+  transition: all 0.25s ease;
 }
 
 .recovered-cases-card:hover .tab-selection{
@@ -87,6 +80,7 @@
   top: 0;
   left: 0;
   right: 0;  
+  transition: all 0.25s ease;
 }
 
 .deaths-cases-card:hover .tab-selection{
@@ -96,6 +90,7 @@
   top: 0;
   left: 0;
   right: 0;  
+  transition: all 0.25s ease;
 }
 
 .cases-card.show-clicked .tab-selection{
@@ -118,7 +113,7 @@
 
 .recovered-cases-card.show-clicked .tab-selection{
   height: 10px;
-  background-color: #74ad74;
+  background-color: #7fd922;
   position: absolute;
   top: 0;
   left: 0;
@@ -158,23 +153,19 @@
 }
 
 .map-container {
-  /*👉height: 500px;👈*/
-  /*👉height: 97%;👈*/
+  
   height: 510px;
 }
 
 #map {
-  /*👉position: relative;👈*/
   border-radius: 12px;
   overflow: hidden;
   width: 100%;
   height: 97%;
-  /*👉height: 500px;👈*/
- /*👉 height: 100%;👈*/
+ 
 }
 
 .chart-container {
-  /*👉height: 250px;👈*/
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -186,8 +177,6 @@
   background-color: #eff2f6;
   border-radius: 12px;
 }
-
-
 
 .total-number {
   color: #B90808;
@@ -201,17 +190,21 @@
   color: #1d2c4d;
 }
 
+/*👉.side-panel-parent-container {👈*/
+  /*👉margin-right: 0;👈*/
+  /*👉height: 900 px;👈*/
+  /*👉height: 100vh;👈*/
+/*👉}👈*/
+
 .side-panel-container {
+ /*👉 height: 100%;👈*/
+  
   border-bottom-left-radius: 30px;
   border-top-left-radius: 30px;
   background-color: white;
   box-shadow: 0 0 8px -4px rgba(0,0,0, 0.5);
   padding-top: 15px;
-  /*👉padding-bottom: 15px;👈*/
-
-  /*👉display: flex;
-  flex-direction: column;
-  justify-content: center;👈*/
+  
 }
 
 .cases-table-container h4, .chart-container h4, .map-background h4 {
@@ -222,19 +215,8 @@
 .country-data {
   margin-top: 20px;
   overflow: scroll;
-  /*👉height: 400px;👈*/
-  /*👉height: 100%;👈*/
   height: 33vh;
   overflow-x: hidden;
- 
-
-  /*👉display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  background-color: #eff2f6;
-  border-radius: 24px;
-  overflow-y: hidden;
-  overflow-x: hidden;👈*/
 }
 
 .country-data .table td {
@@ -243,21 +225,9 @@
 }
 
 .linear-chart {
-  /*👉height: 100%;👈*/
-/*👉height: 400px;👈*/
 height: 33vh;
-
-  /*👉width: 200px;👈*/
-  /*👉border: 1px solid rgba(0, 0, 0, 0.125);👈*/
-  /*👉border-radius: 12px;👈*/
 }
 
-/*👉.pie-chart {
-  height: 100%;
-  width: 200px;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 12px;
-}👈*/
 
 #table-parent {
   padding-bottom: 15px;

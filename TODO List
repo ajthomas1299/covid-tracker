@@ -26,11 +26,16 @@
 
 # Finish Search and Related Functionality.  
 
-19. Add Search Functionality.
-20. Add NEW Hover and Active States for cards.
+19. Add Search Functionality. - DONE
+20. Add NEW Hover and Active States for cards. - DONE
 21. Add a container for the map. - DONE
-22. Change the data of the tabs depending on country searched for.
-23. Sort the side panel country data; order by Total Cases desc.
+22. Change the data of the tabs depending on country searched for. - DONE
+23. Sort the side panel country data; order by Total Cases desc. - 
+
+# Mobile Responsiveness and other changes.
+
+24. Convert the graph from total cases to new cases.
+25. 
 
 
 

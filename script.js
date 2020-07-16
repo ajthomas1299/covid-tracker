@@ -21,7 +21,7 @@ let infoWindow;
 let coronaGlobalCountryData;
 let mapCircles = [];
 const worldwideSelection = {
-  name: 'Worldwide',
+  name: `<img style="vertical-align: middle; width: 25px;height:25px;" src="globe.png">` + 'Worldwide',
   value: 'www',
   selected: true,
 }
@@ -177,12 +177,12 @@ const changeDataSelection = (elem, casesType) => {
   //
   let current = document.getElementsByClassName("show-clicked");
 
-  // If there's no active class
+  // Clear current active card
   if (current.length > 0) {
     current[0].className = current[0].className.replace(" show-clicked", "");
   }
 
-  //
+  // Add show-clicked class names to clicked on element.
   elem.classList.toggle("show-clicked");
   //
   clearTheMap();
@@ -215,6 +215,8 @@ const setMapCenter = (lat, long, zoom) => {
 
 //
 const setSearchList = (data) => {
+  // Test
+  // console.log("In setSearchList: data: ", data);
   //
   let searchList = [];
   //
@@ -223,7 +225,7 @@ const setSearchList = (data) => {
   //
   data.forEach((countryData) => {
     searchList.push({
-      name: countryData.country,
+      name: `<img style="vertical-align: middle; width: 25px;height:20px;" src=${countryData.countryInfo.flag}>` + countryData.country,
       value: countryData.countryInfo.iso3
     })
   })
@@ -355,16 +357,97 @@ const showDataOnMap = (data, casesType = "cases") => {
   ////
 };
 
+// Comparer function. To help the javascript sort function Sort the Json Object in a specified order by.
+const getSortOrder = (attribute, orderBy) => {
+  //
+  return function (a, b) {
+    //
+    if (orderBy.toUpperCase() === "DESC") {
+      //
+      if (b[attribute] > a[attribute]) {
+        return 1;
+      } else if (b[attribute] < a[attribute]) {
+        return - 1;
+
+      } else {
+        return 0;
+      };
+      //
+    } else {
+      //
+      if (a[attribute] > b[attribute]) {
+        return 1;
+      } else if (a[attribute] < b[attribute]) {
+        return - 1;
+
+      } else {
+        return 0;
+      };
+      //
+    }
+    ////
+  }
+};
+
+//
+const panMapToCountrySelectedInTable = (tableRowElement) => {
+  // Testing
+  //console.log("In panMap...: tableRowElement : ", tableRowElement);
+  //
+  //console.log("In panMap...: element.classList : ", tableRowElement.classList);
+  //
+
+  //
+  let col;
+  let newLat;
+  let newLng;
+  let countryIso;
+  //
+  for (let i = 0; col = tableRowElement.cells[i]; i++) {
+    //columns would be accessed using the "col" variable assigned in the for loop
+    // Testing
+    //console.log("innerText: i : " + i + " " + col.innerText);    //Will give you the td value
+    //
+    if (i === 3) {
+      newLat = col.innerText;
+    } else if (i === 4) {
+      newLng = col.innerText;
+    } else if (i === 5) {
+      countryIso = col.innerText;
+    }
+    ////
+  }
+
+  //
+  let newZoom = 3;
+  if ((countryIso == "USA") || (countryIso == "BRA") || (countryIso == "RUS")) {
+    newZoom = 3;
+  } else {
+    newZoom = 5;
+  }
+  //
+  setMapCenter(Number(newLat), Number(newLng), Number(newZoom));
+  ////
+}
+
 // showDataInTable function.
 const showDataInTable = (data, casesType = "cases") => {
+  // Troubleshooting
+  //console.log("In showDataInTable : ", data);
+  // Sort the data in the JSON object by number of cases desc.
+  data.sort(getSortOrder("cases", "DESC")); //pass the attribute to be sorted on and the order by. (ASC or DESC)
   //
   var html = "";
   //
   data.forEach((country) => {
     html += `
-        <tr>
-            <td>${country.country}</td>
-            <td>${country.cases.toLocaleString()}</td>
+        <tr class="tRow" onclick="panMapToCountrySelectedInTable(this)" style="cursor: pointer;">
+            <td class="tFlag"><img style="width: 30px;height:25px;" src=${country.countryInfo.flag}></td>
+            <td class="tCountry">${country.country}</td>
+            <td class="tCases">${country.cases.toLocaleString()}</td>
+            <td class="tLat" style="display: none;">${country.countryInfo.lat}</td>
+            <td class="tLong" style="display: none;">${country.countryInfo.long}</td>
+            <td class="tIso3" style="display: none;">${country.countryInfo.iso3}</td>
         </tr>
         `;
   });
