@@ -3,21 +3,15 @@
 // buildChartDataCases function. Called from getHistoricalData.
 const buildChartDataCases = (data) => {
   //
-  // console.log(
-  //   "In buildChartDataCases : data: " + JSON.stringify(data, null, 4)
-  // );
+  // console.log("In buildChartDataCases : data: " + JSON.stringify(data, null, 4));
   //
   let chartDataCases = [];
   let lastDataPoint;
   //
   for (let date in data.cases) {
     // Testing
-    // data.cases.toLocaleString()
-    // console.log(
-    //   "In buildChartDataCases: data.cases Y parameter: " +
-    //     data.cases[date].toLocaleString()
-    // );
-
+    // console.log("In buildChartDataCases: data.cases Y parameter: " + data.cases[date].toLocaleString());
+    //
     if (lastDataPoint) {
       //
       let newDataPoint = {
@@ -42,22 +36,31 @@ const buildChartDataRecovered = (data) => {
   //
   //console.log("In buildChartDataRecovered : data: " + JSON.stringify(data, null, 4));
   //
+
+  //
   let chartDataRecovered = [];
+  let lastDataPoint;
   //
   for (let date in data.recovered) {
     //
-    let newDataPoint = {
-      x: date,
-      y: data.recovered[date],
-    };
+    if (lastDataPoint) {
+      //
+      let newDataPoint = {
+        x: date,
+        y: data.recovered[date] - lastDataPoint,
+      };
+      //
+      chartDataRecovered.push(newDataPoint);
+      //
+    }
     //
-    chartDataRecovered.push(newDataPoint);
+    lastDataPoint = data.recovered[date];
     //
   }
   //
   return chartDataRecovered;
   ////
-};
+}
 
 // buildChartDataDeaths function. Called from getHistoricalData.
 const buildChartDataDeaths = (data) => {
@@ -65,15 +68,24 @@ const buildChartDataDeaths = (data) => {
   //console.log("In buildChartDataDeaths : data: " + JSON.stringify(data, null, 4));
   //
   let chartDataDeaths = [];
+  let lastDataPoint;
+  //
+
   //
   for (let date in data.deaths) {
     //
-    let newDataPoint = {
-      x: date,
-      y: data.deaths[date],
-    };
+    if (lastDataPoint) {
+      //
+      let newDataPoint = {
+        x: date,
+        y: data.deaths[date] - lastDataPoint,
+      };
+      //
+      chartDataDeaths.push(newDataPoint);
+      //
+    }
     //
-    chartDataDeaths.push(newDataPoint);
+    lastDataPoint = data.deaths[date];
     //
   }
   //
@@ -81,7 +93,7 @@ const buildChartDataDeaths = (data) => {
   ////
 };
 
-// buildPieChart function.
+// buildPieChart function.  Left here for reference.
 // const buildPieChart = (data) => {
 //   var ctx = document.getElementById("myPieChart").getContext("2d");
 
@@ -149,7 +161,7 @@ const buildChartDataDeaths = (data) => {
 // };
 
 // buildChart function. Builds the linear chart.
-const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
+const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths, dataSetSelect) => {
   //
   // console.log(
   //   "In buildChart function : chartDataCases: " +
@@ -159,12 +171,61 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
   var timeFormat = "MM/DD/YY";
   var ctx = document.getElementById("myChart").getContext("2d");
   //
-  var chart = new Chart(ctx, {
+  if (dataSetSelect === "cases") {
+    //
+    dataSet = {
+      label: "Daily New Cases",
+      backgroundColor: "rgba(204, 16, 52, 0.5)",
+      borderColor: "#B90808",
+      fill: true,
+      data: chartDataCases,
+    }
+    //
+  } else if (dataSetSelect === "recovered") {
+    //
+    dataSet = {
+      label: "Daily New Recovered",
+      backgroundColor: "rgba(125, 215, 29, 0.5)",
+      borderColor: "#7dd71d",
+      fill: true,
+      data: chartDataRecoverd,
+    }
+    //
+  } else if (dataSetSelect === "deaths") {
+    //
+    dataSet = {
+      label: "Daily New Deaths",
+      backgroundColor: "rgba(29, 44, 77, 0.5)",
+      borderColor: "#1d2c4d",
+      fill: true,
+      data: chartDataDeaths,
+    }
+    //
+  } else {
+    //
+    dataSet = {
+      label: "Daily New Cases",
+      backgroundColor: "rgba(204, 16, 52, 0.5)",
+      borderColor: "#B90808",
+      fill: true,
+      data: chartDataCases,
+    }
+  }
+  //
+  // Troubleshooting
+  // console.log("In buildChar: casesType or dataSetSelect and...", dataSetSelect + "...dataSet...", dataSet);
+  //
+  chart = new Chart(ctx, {
     // The type of chart we want to create
     type: "line",
 
     // Configuration options go here
     options: {
+      //
+      animation: {
+        duration: 1500,
+        easing: 'linear',
+      },
       //
       elements: {
         point: {
@@ -228,37 +289,12 @@ const buildChart = (chartDataCases, chartDataRecoverd, chartDataDeaths) => {
         ],
       },
     },
-
-    // The data for our datasets
+    // The data for our selected dataset.
     data: {
-      datasets: [
-        {
-          label: "Daily New Cases",
-          backgroundColor: "rgba(204, 16, 52, 0.5)",
-          borderColor: "#B90808",
-          fill: true,
-          data: chartDataCases,
-        },
-        // {
-        //   label: "Recovered",
-        //   backgroundColor: "#7dd71d",
-        //   borderColor: "#1d2c4d",
-        //   fill: false,
-        //   data: chartDataRecoverd,
-        // },
-        // {
-        //   label: "Deaths",
-        //   backgroundColor: "#fb4443",
-        //   borderColor: "#1d2c4d",
-        //   fill: false,
-        //   data: chartDataDeaths,
-        // },
-      ],
+      datasets: [dataSet,],
     },
     //
-
-    //
   });
+  ////
 };
-
 ///////////////////////////////////////////////////////////////////

@@ -5,9 +5,13 @@ window.onload = () => {
   //console.log("in window onload!");
   //
   getCountriesData();
+  // getWorldCoronaData();
   getHistoricalData();
   getWorldCoronaData();
   //
+
+  // An alternative method. Here for reference.
+  // });
   // document.querySelector(".active-cases-card").addEventListener("click", () => {
   //   console.log("yo we clicked");
   // });
@@ -19,18 +23,24 @@ window.onload = () => {
 let map;
 let infoWindow;
 let coronaGlobalCountryData;
+let chartDataCases;
+let chartDataRecovered;
+let chartDataDeaths;
+let casesType;
+let chart;
 let mapCircles = [];
+let tableDataHasLoaded = false;
+//
 const worldwideSelection = {
   name: `<img style="vertical-align: middle; width: 25px;height:25px;" src="globe.png">` + 'Worldwide',
   value: 'www',
   selected: true,
 }
+//
 let casesTypeColors = {
-  // cases: "#1d2c4d",
   cases: "#B90808",
   active: "#9d80fe",
   recovered: "#7dd71d",
-  // deaths: "#fb4443",
   deaths: "#1d2c4d",
 };
 
@@ -75,8 +85,18 @@ const initDropdown = (searchList) => {
 
       if (value !== worldwideSelection.value) {
         getCountryData(value);
+        //
+        scrollTable(value);
+        ////
       } else {
         getWorldCoronaData();
+        // To make sure scroll data is not called on init.
+        if (tableDataHasLoaded) {
+          scrollTable(value);
+        } else {
+          tableDataHasLoaded = true;
+        }
+        ////
       }
     }
   });
@@ -97,7 +117,7 @@ const getCountryData = (countryIso) => {
     })
     .then((data) => {
       let newZoom = 3;
-      if ((countryIso == "USA") || (countryIso == "BRA")) {
+      if ((countryIso == "USA") || (countryIso == "BRA") || (countryIso == "RUS")) {
         newZoom = 3;
       } else {
         newZoom = 5;
@@ -106,8 +126,8 @@ const getCountryData = (countryIso) => {
       // console.log("In getCountryData: countryIso: ", countryIso);
       // console.log("In getCountryData: newZoom: ", newZoom);
       //
-      setMapCenter(data.countryInfo.lat, data.countryInfo.long, newZoom);
       setStatsCardNumbers(data);
+      setMapCenter(data.countryInfo.lat, data.countryInfo.long, newZoom);
       //
       //console.log(data);
     });
@@ -130,12 +150,16 @@ const getCountriesData = () => {
       showDataInTable(data);
       //
       //console.log(data);
+      //
+      // return true;
+      ////
     });
   ////
 };
 
 // getWorldCoronaData function.
 const getWorldCoronaData = () => {
+  //
   fetch("https://disease.sh/v2/all")
     .then((response) => {
       return response.json();
@@ -149,6 +173,10 @@ const getWorldCoronaData = () => {
       //
       // let chartData = buildPieChart(data);
       //
+      //buildChart(chartDataCases, chartDataRecovered, chartDataDeaths, "cases");
+      //
+      // return true;
+      ////
     });
 };
 
@@ -159,35 +187,43 @@ const getHistoricalData = () => {
       return response.json();
     })
     .then((data) => {
-      let chartDataCases = buildChartDataCases(data);
-      let chartDataRecovered = buildChartDataRecovered(data);
-      let chartDataDeaths = buildChartDataDeaths(data);
-      buildChart(chartDataCases, chartDataRecovered, chartDataDeaths);
+      chartDataCases = buildChartDataCases(data);
+      chartDataRecovered = buildChartDataRecovered(data);
+      chartDataDeaths = buildChartDataDeaths(data);
+      buildChart(chartDataCases, chartDataRecovered, chartDataDeaths, "cases");
     });
 };
 
 
 
 // changeDataSelection function.
-const changeDataSelection = (elem, casesType) => {
+const changeDataSelection = (elem, casesTypeSelected) => {
   // Testing
   // console.log(casesType);
   // console.log(mapCircles);
 
+  casesType = casesTypeSelected;
   //
   let current = document.getElementsByClassName("show-clicked");
 
-  // Clear current active card
+  // Clear current active Card.
   if (current.length > 0) {
     current[0].className = current[0].className.replace(" show-clicked", "");
   }
 
-  // Add show-clicked class names to clicked on element.
+  // Add show-clicked class names to clicked on Card element.
   elem.classList.toggle("show-clicked");
   //
   clearTheMap();
   //
   showDataOnMap(coronaGlobalCountryData, casesType);
+  //
+  // clearTheLinearChart();
+  chart.destroy();
+  //
+  // showDataOnLinearChart(coronaGlobalCountryData, casesType);
+  //
+  buildChart(chartDataCases, chartDataRecovered, chartDataDeaths, casesType);
   ////
 };
 
@@ -225,7 +261,7 @@ const setSearchList = (data) => {
   //
   data.forEach((countryData) => {
     searchList.push({
-      name: `<img style="vertical-align: middle; width: 25px;height:20px;" src=${countryData.countryInfo.flag}>` + countryData.country,
+      name: `<img style="vertical-align: middle; width: 30px;height:20px;" src=${countryData.countryInfo.flag}>` + countryData.country,
       value: countryData.countryInfo.iso3
     })
   })
@@ -403,6 +439,9 @@ const panMapToCountrySelectedInTable = (tableRowElement) => {
   let newLng;
   let countryIso;
   //
+
+
+  //
   for (let i = 0; col = tableRowElement.cells[i]; i++) {
     //columns would be accessed using the "col" variable assigned in the for loop
     // Testing
@@ -418,15 +457,61 @@ const panMapToCountrySelectedInTable = (tableRowElement) => {
     ////
   }
 
+  // Set Search to reflect table click.
+  // worldwideSelection.value
+  $('.ui.dropdown').dropdown('set selected', countryIso);
+
+  ////
+  getCountryData(countryIso);
+  ////
+}
+
+//
+const scrollTable = (searchClickCountryIso) => {
+  // Testing
+  //console.log("In scrollTable: searchClickInfo: ", searchClickCountryIso);
   //
-  let newZoom = 3;
-  if ((countryIso == "USA") || (countryIso == "BRA") || (countryIso == "RUS")) {
-    newZoom = 3;
-  } else {
-    newZoom = 5;
+
+  //
+  let i = 0;
+  //
+  // while (document.getElementById('table-data').rows[i].cells[5].innerText != searchClickCountryIso) {
+  // while (i < 300) {
+  while (i < coronaGlobalCountryData.length) {
+    //
+    document.getElementById('table-data').rows[i].scrollIntoView(true);
+    //
+    // console.log("In scrollTable: countryIso: ", document.getElementById('table-data').rows[i].cells[5].innerText);
+    // //
+    if ((document.getElementById('table-data').rows[i].cells[5].innerText === searchClickCountryIso) ||
+      (searchClickCountryIso === "www")) {
+      //
+      break;
+      //
+    } else {
+      //
+      i++;
+      //
+    }
+    //
+    // i++;
+    ////
   }
-  //
-  setMapCenter(Number(newLat), Number(newLng), Number(newZoom));
+
+
+  ////
+  // scroll the table to the top?
+
+  // get element by tagname?
+  // let rowElement = table.getElementByTagName("td")[5];
+
+  // var elm = document.getElementById(id);
+  // rowElement.scrollIntoView(true);
+
+  // Scroll the table to element 20.
+  // var s = $("table tbody > tr:nth-child(20)").position();
+  // $( "div" ).scrollTop( s.top );
+  // }
   ////
 }
 
@@ -442,7 +527,7 @@ const showDataInTable = (data, casesType = "cases") => {
   data.forEach((country) => {
     html += `
         <tr class="tRow" onclick="panMapToCountrySelectedInTable(this)" style="cursor: pointer;">
-            <td class="tFlag"><img style="width: 30px;height:25px;" src=${country.countryInfo.flag}></td>
+            <td class="tFlag"><img style="width: 37px;height:25px;" src=${country.countryInfo.flag}></td>
             <td class="tCountry">${country.country}</td>
             <td class="tCases">${country.cases.toLocaleString()}</td>
             <td class="tLat" style="display: none;">${country.countryInfo.lat}</td>
