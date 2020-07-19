@@ -1,7 +1,7 @@
 /*  NEW-STYLE.CSS */
 
 .main {
-  height: 100vh;
+  height: 80vh;
 }
 
 .title-container h2 {
@@ -53,7 +53,6 @@
 .stats-container .total {
   font-size: 0.8rem;
 }
-
 
 .cases-card:hover,
 .active-cases-card:hover,
@@ -190,15 +189,7 @@
   color: #1d2c4d;
 }
 
-/*👉.side-panel-parent-container {👈*/
-  /*👉margin-right: 0;👈*/
-  /*👉height: 900 px;👈*/
-  /*👉height: 100vh;👈*/
-/*👉}👈*/
-
 .side-panel-container {
- /*👉 height: 100%;👈*/
-  
   border-bottom-left-radius: 30px;
   border-top-left-radius: 30px;
   background-color: white;
@@ -207,7 +198,7 @@
   
 }
 
-.cases-table-container h4, .chart-container h4, .map-background h4 {
+.cases-table-container h4, .chart-container h4, .map-background h4, .slider-container p {
   color: #6a5D5D;
   font-weight: 400;
 }
@@ -238,5 +229,34 @@ height: 33vh;
   position: sticky;
   top: 0;
 }
+
+.parent-slider-container {
+  height: 14vh;
+  padding: 0;
+ }
+
+
+.slider-container {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(177, 175, 175, 0.125);
+  border-radius: 12px;
+  box-shadow: 0, 0, 8px, -4px, rgba(0,0,0, 0.5);
+  margin-top: 10px;
+}
+
+.slider-card {
+  background-color: #F5F6FA;
+  border: 1px solid rgba(177, 175, 175, 0.125);
+  border-radius: 12px;
+  box-shadow: 0, 0, 8px, -4px, rgba(0,0,0, 0.5);
+  text-align: center;
+  margin-top: 15px;
+  margin-left: 22px;
+  margin-right: 22px;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+ }
 
 /* ****************************************************** */

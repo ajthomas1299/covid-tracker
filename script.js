@@ -5,11 +5,10 @@ window.onload = () => {
   //console.log("in window onload!");
   //
   getCountriesData();
-  // getWorldCoronaData();
   getHistoricalData();
   getWorldCoronaData();
   //
-
+  initSlider();
   // An alternative method. Here for reference.
   // });
   // document.querySelector(".active-cases-card").addEventListener("click", () => {
@@ -50,12 +49,6 @@ const mapCenter = {
   lng: -40.4796
 }
 
-//
-// const mapCenter = {
-//   lat: 39.8283,
-//   lng: -98.5795
-// }
-
 // initMap function.
 function initMap() {
   //
@@ -74,8 +67,6 @@ function initMap() {
 
 // initDropdown function.
 const initDropdown = (searchList) => {
-  //
-
   //
   $('.ui.dropdown').dropdown({
     values: searchList,
@@ -100,6 +91,54 @@ const initDropdown = (searchList) => {
       }
     }
   });
+}
+
+// init slider. https://kenwheeler.github.io/slick/
+const initSlider = () => {
+  //
+  $(document).ready(function () {
+    $('.slider-container').slick({
+      dots: true,
+      arrows: true,
+      prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+      nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>",
+      infinite: false,
+      speed: 300,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      adaptiveHeight: false,
+      centerMode: false,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ]
+    });
+  });
+  ////
 }
 
 // getCountryData function.
@@ -150,8 +189,6 @@ const getCountriesData = () => {
       showDataInTable(data);
       //
       //console.log(data);
-      //
-      // return true;
       ////
     });
   ////
@@ -171,13 +208,8 @@ const getWorldCoronaData = () => {
       setStatsCardNumbers(data);
       setMapCenter(mapCenter.lat, mapCenter.lng, 2);
       //
-      // let chartData = buildPieChart(data);
-      //
-      //buildChart(chartDataCases, chartDataRecovered, chartDataDeaths, "cases");
-      //
-      // return true;
-      ////
     });
+  ////
 };
 
 // getHistoricalData function.  fetch / get the corona virus historical data.
@@ -192,6 +224,7 @@ const getHistoricalData = () => {
       chartDataDeaths = buildChartDataDeaths(data);
       buildChart(chartDataCases, chartDataRecovered, chartDataDeaths, "cases");
     });
+  ////
 };
 
 
@@ -217,6 +250,34 @@ const changeDataSelection = (elem, casesTypeSelected) => {
   clearTheMap();
   //
   showDataOnMap(coronaGlobalCountryData, casesType);
+  //
+  // Set new map title
+  if (casesType === "cases") {
+    //
+    document.getElementById(
+      "map-title"
+    ).innerHTML = "Coronavirus Cases";
+    //
+  } else if (casesType === "recovered") {
+    //
+    document.getElementById(
+      "map-title"
+    ).innerHTML = "Recovered Cases";
+    //
+  } else if (casesType === "deaths") {
+    //
+    document.getElementById(
+      "map-title"
+    ).innerHTML = "Coronavirus Deaths";
+    //
+  } else {
+    //
+    document.getElementById(
+      "map-title"
+    ).innerHTML = "Coronavirus Cases";
+    //
+  } // end if
+
   //
   // clearTheLinearChart();
   chart.destroy();
@@ -247,6 +308,7 @@ const setMapCenter = (lat, long, zoom) => {
     lat: lat,
     lng: long
   });
+  ////
 }
 
 //
@@ -317,12 +379,15 @@ const setStatsCardNumbers = (data) => {
   document.querySelector(
     ".deaths-total"
   ).innerHTML = `${totalDeathCases} Total`;
+  //
   ////
 };
 
 // openInfoWindow function.
 const openInfoWindow = () => {
+  //
   infoWindow.open(map);
+  ////
 };
 
 // showDataOnMap function.
@@ -335,13 +400,12 @@ const showDataOnMap = (data, casesType = "cases") => {
       lng: country.countryInfo.long,
     };
 
+
     //
     var countryCircle = new google.maps.Circle({
-      // strokeColor: "#FF0000",
       strokeColor: casesTypeColors[casesType],
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      // fillColor: "#FF0000",
       fillColor: casesTypeColors[casesType],
       fillOpacity: 0.35,
       map: map,
@@ -423,6 +487,7 @@ const getSortOrder = (attribute, orderBy) => {
     }
     ////
   }
+  ////
 };
 
 //
@@ -439,7 +504,6 @@ const panMapToCountrySelectedInTable = (tableRowElement) => {
   let newLng;
   let countryIso;
   //
-
 
   //
   for (let i = 0; col = tableRowElement.cells[i]; i++) {
@@ -497,21 +561,6 @@ const scrollTable = (searchClickCountryIso) => {
     // i++;
     ////
   }
-
-
-  ////
-  // scroll the table to the top?
-
-  // get element by tagname?
-  // let rowElement = table.getElementByTagName("td")[5];
-
-  // var elm = document.getElementById(id);
-  // rowElement.scrollIntoView(true);
-
-  // Scroll the table to element 20.
-  // var s = $("table tbody > tr:nth-child(20)").position();
-  // $( "div" ).scrollTop( s.top );
-  // }
   ////
 }
 

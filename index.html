@@ -19,7 +19,9 @@
   <script src="map-style.js"></script>
   <script src="script.js"></script>
   <script src="chart.js"></script>
-  <!-- <script src="smoothscroll.js"></script> -->
+  <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+  <!-- Adds the new slick-theme.css to get the default styling -->
+  <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
 </head>
 
 <body>
@@ -40,7 +42,8 @@
             </div>
 
           </div>
-        </div>
+        </div><!-- end row header-container -->
+
         <!--row stats-container contains bootstrap cards.-->
         <div class="row stats-container">
 
@@ -48,7 +51,7 @@
             <div class="card cases-card show-clicked" onclick="changeDataSelection(this,'cases')">
               <div class="tab-selection"></div>
               <div class="card-body">
-                <h6 class="card-title">Coronavirus Cases</h6>
+                <h6 class="card-title">New Coronavirus Cases</h6>
                 <h3 class="card-subtitle mb-2 total-number" id="total-cases">...</h3>
                 <div class="text-muted font-weight-bold total cases-total">1.69m</div>
               </div>
@@ -59,7 +62,7 @@
             <div class="card recovered-cases-card" onclick="changeDataSelection(this, 'recovered')">
               <div class="tab-selection"></div>
               <div class="card-body">
-                <h6 class="card-title">Recovered</h6>
+                <h6 class="card-title">Recovered Today</h6>
                 <h3 class="card-subtitle mb-2 recovered-number" id="recovered-cases">...</h3>
                 <div class="text-muted font-weight-bold total recovered-total">1.69m</div>
               </div>
@@ -70,17 +73,18 @@
             <div class="card deaths-cases-card" onclick="changeDataSelection(this, 'deaths')">
               <div class="tab-selection"></div>
               <div class="card-body">
-                <h6 class="card-title">Deaths</h6>
+                <h6 class="card-title">Today's Deaths</h6>
                 <h3 class="card-subtitle mb-2 deaths-number" id="death-cases">...</h3>
                 <div class="text-muted font-weight-bold total deaths-total">1.69m</div>
               </div>
             </div>
           </div>
 
-        </div>
+        </div><!-- end row stats-container -->
+
         <!--row map-container-->
         <div class="map-background">
-          <h4>Coronavirus Cases</h4>
+          <h4 id="map-title" class="map-header">Coronavirus Cases</h4>
           <div class="row map-container ">
             <div class="col">
               <div id="map"></div>
@@ -88,11 +92,8 @@
           </div>
         </div>
 
-      </div><!-- end first col -->
+      </div><!-- end first col-12 -->
 
-      <!-- <div class="col-12 col-lg-4 side-panel-parent-container"> -->
-      <!-- <div class="row side-panel-parent-container"> -->
-      <!-- <div> -->
       <div class="col-12 col-lg-4 side-panel-container mt-3 data-info">
         <div class="cases-table-container">
           <h4>Total Cases by Country</h4>
@@ -101,28 +102,62 @@
               <tbody id="table-data">
 
               </tbody>
-
             </table>
-
           </div>
-
-        </div>
+        </div><!-- end cases-table-container -->
 
         <div class="chart-container mt-3">
           <h4>Global Daily Numbers</h4>
           <div class="linear-chart p-3">
             <canvas id="myChart"></canvas>
           </div>
+        </div><!-- end chart-container -->
+
+      </div><!-- end side-panel-container -->
+
+    </div><!-- end row -->
+    <div class="col-12 parent-slider-container">
+      <div class="col-12 slider-container">
+        <div class="slider-card">
+          <p>DATA SOURCES<br>
+            As with all data samples, this may or may not represent the exact numbers
+            of the total population.
+          </p>
+        </div>
+        <div class="slider-card">
+          <p>Data sourced from...<br>
+            - Johns Hopkins University.<br>
+            - The New York Times.</p>
+        </div>
+        <div class="slider-card">
+          <p>- Worldometers.<br>
+            - Google, Apple and Waze <br>
+            COVID-19 Mobility Reports.</p>
+        </div>
+        <div class="slider-card">
+          <p>Official Updates from US, Australia, Canada, China, Netherlands, UK, France, and Denmark.<br>
+            ---
+          </p>
+        </div>
+        <div class="slider-card">
+          <p>- Robert Koch Institut.<br>
+            - Government of India.<br>
+            - Government of Nigeria.
+          </p>
+        </div>
+        <div class="slider-card">
+          <p>- Statistical Office of Zurich, Switzerland.<br>
+            - Canada Public Health Services.<br>
+            - Government of the United Kingdom.
+          </p>
         </div>
       </div>
-      <!-- </div> -->
-      <!-- </div>end second col -->
+    </div><!-- end parent-slider-container-->
 
-      <!-- end row -->
-    </div>
-    <!-- end main container-fluid-->
-  </div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ7VvobsIYLr3Pe6cTNUnIUvzgpV2Na-o&callback=initMap"
+
+  </div><!-- end main container-fluid-->
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDugpZ2dBgB0cMjuc9KH_jFCdtM8b_LHoc&callback=initMap"
     async defer></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -135,6 +170,7 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/transition.min.js"></script>
+  <script type="text/javascript" src="slick/slick.min.js"></script>
 </body>
 
 </html>

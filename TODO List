@@ -30,13 +30,15 @@
 20. Add NEW Hover and Active States for cards. - DONE
 21. Add a container for the map. - DONE
 22. Change the data of the tabs depending on country searched for. - DONE
-23. Sort the side panel country data; order by Total Cases desc. - 
+23. Sort the side panel country data; order by Total Cases desc. - DONE
 
 # Mobile Responsiveness and other changes.
 
-24. Convert the graph from total cases to new cases.
-25. 
-
+24. Convert the graph from total cases to new cases. - DONE
+25. Add sources slider. - DONE
+26. Sync table and search selections. - DONE
+27. Add update map title on card click. - DONE
+28. Publish on SpideyWebDesigns.com - DONE
 
 
 ######################################################################
