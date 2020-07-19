@@ -10,4 +10,7 @@ This project uses:
 - CSS
 - HTML
 
+<img src="images/covid-tracker.png" width="600" >
+
+
 /////////////////////////////////////////////////////
