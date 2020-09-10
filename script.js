@@ -400,18 +400,53 @@ const showDataOnMap = (data, casesType = "cases") => {
       lng: country.countryInfo.long,
     };
 
+    // Testing
+    //console.log("data: ", data);
+    //console.log("country[name]: ", country.country);
+    //console.log("Radius number: ", country[casesType]);
 
     //
-    var countryCircle = new google.maps.Circle({
-      strokeColor: casesTypeColors[casesType],
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: casesTypeColors[casesType],
-      fillOpacity: 0.35,
-      map: map,
-      center: countryCenter,
-      radius: country[casesType],
-    });
+    if (casesType === 'cases') {
+
+      var countryCircle = new google.maps.Circle({
+        strokeColor: casesTypeColors[casesType],
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: casesTypeColors[casesType],
+        fillOpacity: 0.35,
+        map: map,
+        center: countryCenter,
+        radius: country[casesType] / 6,
+      });
+
+    } else if (casesType === 'deaths') {
+
+      var countryCircle = new google.maps.Circle({
+        strokeColor: casesTypeColors[casesType],
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: casesTypeColors[casesType],
+        fillOpacity: 0.35,
+        map: map,
+        center: countryCenter,
+        radius: country[casesType] * 4,
+      });
+
+    } else {
+
+      var countryCircle = new google.maps.Circle({
+        strokeColor: casesTypeColors[casesType],
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: casesTypeColors[casesType],
+        fillOpacity: 0.35,
+        map: map,
+        center: countryCenter,
+        radius: country[casesType] / 5,
+      });
+
+    }
+
 
     // load our array we will use to clear the circles later.
     mapCircles.push(countryCircle);
@@ -468,7 +503,6 @@ const getSortOrder = (attribute, orderBy) => {
         return 1;
       } else if (b[attribute] < a[attribute]) {
         return - 1;
-
       } else {
         return 0;
       };
@@ -479,7 +513,6 @@ const getSortOrder = (attribute, orderBy) => {
         return 1;
       } else if (a[attribute] < b[attribute]) {
         return - 1;
-
       } else {
         return 0;
       };
